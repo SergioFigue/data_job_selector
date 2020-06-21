@@ -1,0 +1,16 @@
+Data PT Mad Project M1 Log
+
+14/06/2020
+
+Import dataframe into new Jupyter notebook
+Reading tables and understading content
+
+21/06/2020
+
+Cleaning Personal table:
+- Columns names changed
+- Age values turned into integer
+ **** Func agefunc
+- Cleaning caps and formating strings in Gender
+- Studing Age_group column: error values found
+
