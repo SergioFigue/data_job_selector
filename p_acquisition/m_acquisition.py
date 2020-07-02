@@ -3,5 +3,6 @@ import pandas as pd
 # acquisition functions
 
 def acquire():
-    data = pd.read_csv('./data/raw/vehicles.csv')
+    data = pd.read_csv('./data/processed/glob_data.csv')
+    print(data.head())
     return data
