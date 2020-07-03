@@ -6,9 +6,8 @@ import re
 
 
 def transform_data(data):
-    relevant_data = data[['uuid', 'age', 'country_code', 'normalized_job_code']]
+    relevant_data = data[['country_code', 'normalized_job_code', 'age']]
     relevant_data = relevant_data[relevant_data['normalized_job_code'].notna()]
-    relevant_data['Quantity'] = relevant_data.groupby('normalized_job_code')['normalized_job_code'].transform('count')
     relevant_data.rename(columns={'age': 'Age', 'country_code': 'Country', 'normalized_job_code': 'Job Title'},
                        inplace=True)
     return relevant_data
@@ -37,13 +36,7 @@ def country_name_import(relevant_data):
     return clean_data, countries_codes
 
 
-def quantity_func(clean_data):
-    clean_data['Quantity'] = clean_data.groupby('normalized_job_code')['normalized_job_code'].transform('count')
-    clean_data = clean_data['Country', 'Age', 'Job Title', 'Quantity']
-    return clean_data
-
-
-#This fuction finds any job you want by matching your code and the official tables
+# This function finds any job you want by matching your code and the official tables
 def finding_job(clean_data, job_title):
     key_uuid = ''
     for code in clean_data['Job Title']:
@@ -67,11 +60,12 @@ def job_data(clean_data, job):
     return select_job, key_uuid
 
 
-#Filtering by Data Scientist
+# Filtering by Data Scientist
 def job_filtering(clean_data, select_job, key_uuid):
     job_filter = clean_data['Job Title'] == key_uuid
     filtered_data = clean_data[job_filter]
     filtered_data['Job Title'].replace(select_job, inplace=True)
+    # TODO: Bug found! Job Title replace with dict key-value not working
     print(filtered_data[['Country', 'Job Title']].head(3))
 
     return filtered_data

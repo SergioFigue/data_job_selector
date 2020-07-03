@@ -20,9 +20,10 @@ def main(country, job):
     relevant_data = mwr.transform_data(data)
     clean_data, countries_codes = mwr.country_name_import(relevant_data)
     select_job, key_uuid = mwr.job_data(clean_data, job)
-    filtered_data = mwr.job_filtering(clean_data, 'Job Title', key_uuid)
+    filtered_data = mwr.job_filtering(clean_data, select_job, key_uuid)
     filtered_data = man.country_filtering(filtered_data, country, countries_codes)
     result = man.analyze(filtered_data, clean_data)
+    mre.visualizing_histogram(result['Age'], country, job)
     mre.reporting(result)
     print('======= Pipeline is complete. You may find the results in the folder ./data/results =======')
 
