@@ -30,13 +30,13 @@ def country_name_import(relevant_data):
     countries_codes = {codes_clean[i + 1]: codes_clean[i] for i in range(0, len(codes_clean), 2)}
     clean_data = relevant_data
     clean_data['Country'].replace(countries_codes, inplace=True)
-    print(clean_data['Country'].head())
+#    print(clean_data['Country'].head())
     print(countries_codes)
 
     return clean_data, countries_codes
 
 
-# This function finds any job you want by matching your code and the official tables
+# This function finds any job you want by matching your code with official tables
 def finding_job(clean_data, job_title):
     key_uuid = ''
     for code in clean_data['Job Title']:
@@ -50,7 +50,7 @@ def finding_job(clean_data, job_title):
     return {key_uuid: job_title}
 
 
-# Select_jobs triggers the functions and finds the uuid tied to job selected and returns {uuid: job_title}
+# Select_jobs triggers the functions and finds the uuid tied to parsed job
 def job_data(clean_data, job):
     select_job = finding_job(clean_data, job)
     key_uuid = list(select_job.keys())[0]
@@ -60,12 +60,11 @@ def job_data(clean_data, job):
     return select_job, key_uuid
 
 
-# Filtering by Data Scientist
+# Filtering by parsed job
 def job_filtering(clean_data, select_job, key_uuid):
     job_filter = clean_data['Job Title'] == key_uuid
     filtered_data = clean_data[job_filter]
     filtered_data['Job Title'].replace(select_job, inplace=True)
-    # TODO: Bug found! Job Title replace with dict key-value not working
     print(filtered_data[['Country', 'Job Title']].head(3))
 
     return filtered_data

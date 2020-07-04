@@ -42,6 +42,7 @@ Select one of the participant countries from the list:
 * 'Sweden'
 * 'Slovenia'
 * 'Slovakia'
+* 'All_countries'
 
 Insert the desired job title and run DJS.
 
@@ -78,7 +79,7 @@ DJS is a standalone software developed in Python. Requires common Phyton librari
         ├── raw
         ├── processed
         └── results
-
+```
 
 ### Next steps
 DJS is a work-in-progress tool. Future versions will conect to a job aggregator API to cross info with the number of vacancies in selected working field.

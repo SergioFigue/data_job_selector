@@ -22,12 +22,13 @@ def country_filtering(filtered_data, country, countries_codes):
 
 
 # Find out how popular is selected job.
-def analyze(filtered_data, clean_data):
+def analyze(filtered_data, job, clean_data):
     filtered_data['Quantity'] = filtered_data.groupby(['Country', 'Job Title', 'Age'])['Job Title'].transform('count')
     filtered_data['Percentage'] = (filtered_data['Quantity'] / len(clean_data)).astype(float).map(lambda n: '{:.2%}'.format(n))
 
     result = filtered_data
-    print(result.info())
+    print("\n======Please, find your report here=====\n")
+    print(f'Number of {job} workers: {len(filtered_data)}')
     print(result.head(50))
     return result
 
